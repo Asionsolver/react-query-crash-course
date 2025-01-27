@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -18,7 +19,7 @@ export default function ProductDetails({ id }) {
   } = useQuery({
     queryKey: ["products", id],
     queryFn: retrieveProducts,
-    refetchInterval: 1000,
+    // refetchInterval: 5000,
   });
   if (isLoading) {
     return <div>Product details data fetching</div>;
@@ -37,9 +38,8 @@ export default function ProductDetails({ id }) {
         />
         <p className=" pl-3 m-1">ModelNo: {product.title}</p>
         <p className=" pl-3 m-1">Description: {product.description}</p>
-        <p className=" pl-3 m-1">Price: {product.price}</p>
+        <p className=" pl-3 m-1">Price: ${product.price}</p>
         <p className=" pl-3 m-1">{product.rating}/5</p>
-
       </div>
     </div>
   );
