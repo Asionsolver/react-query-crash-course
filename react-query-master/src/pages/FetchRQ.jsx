@@ -1,9 +1,31 @@
 
 import { useQuery } from '@tanstack/react-query';
-import { fetchPosts } from '../api/api';
+import { fetchPosts } from '@/api/api';
+import DataLoadingPage from '@/components/ui/loading/DataLoading';
 
 const FetchRQ = () => {
-  const { data } = useQuery({queryKey: ['posts'], queryFn: fetchPosts});
+  const { data, isLoading, isError, error, failureCount,
+    refetch } = useQuery({
+      queryKey: ['posts'], queryFn: fetchPosts, retry: 3
+    });
+
+  if (isLoading) {
+    return (
+      <DataLoadingPage />
+    )
+  }
+
+  if (isError) {
+    return (<div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">
+      <p>Error: {error.message}</p>
+      <p>Retries: {failureCount}</p>
+      <button onClick={refetch} className="mt-2 px-4 py-2 bg-red-500 text-white rounded">
+        Retry
+      </button>
+    </div> || <DataLoadingPage />)
+  }
+
+
 
   return (
     <div className="">

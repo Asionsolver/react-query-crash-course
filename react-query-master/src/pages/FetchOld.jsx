@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { getPosts } from "../api/api";
+import DataLoadingPage from "../components/ui/loading/DataLoading";
 
 const FetchOld = () => {
   const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
 
   const getPostData = async () => {
     try {
@@ -10,18 +14,35 @@ const FetchOld = () => {
       if (response.status === 200) {
         // console.log(response.data);
         setPost(response.data);
+        setLoading(false);
       } else {
         console.log('Error fetching data');
+        setError(true);
       }
       // console.log(response);
     } catch (error) {
       console.error(error);
+      setError(true);
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     getPostData();
   }, []);
+
+
+  if (loading) {
+    return (
+      <DataLoadingPage />
+    )
+  }
+
+  if (error) {
+    return (<DataLoadingPage />)
+  }
+
+
 
   return (
     <div className="">

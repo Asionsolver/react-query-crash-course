@@ -2,10 +2,14 @@ import { lazy } from "react";
 
 import { useRoutes } from "react-router";
 
-const Home = lazy(() => import("@/pages/Home"));
 import AppLayout from '@/components/layout/AppLayout';
+const Home = lazy(() => import("@/pages/Home"));
 const FetchOld = lazy(() => import("@/pages/FetchOld"));
 const FetchRQ = lazy(() => import("@/pages/FetchRQ"));
+const UsersList = lazy(() => import("@/pages/UsersList"));
+const ProductList = lazy(() => import("@/pages/ProductList"));
+const ProductDetails = lazy(() => import("@/components/ui/product/ProductDetails"));
+const UserProfile = lazy(() => import("@/components/ui/user/UserProfile"));
 
 
 function Routes() {
@@ -19,12 +23,28 @@ function Routes() {
           element: <Home />,
         },
         {
-          path:"trad",
-          element:<FetchOld/>,
+          path: "trad",
+          element: <FetchOld />,
         },
         {
-          path:"rq",
-          element:<FetchRQ/>,
+          path: "rq",
+          element: <FetchRQ />,
+        },
+        {
+          path: "users",
+          element: <UsersList />,
+        },
+        {
+          path: "users/:id",
+          element: <UserProfile />,
+        },
+        {
+          path: "products",
+          element: <ProductList />,
+        },
+        {
+          path: "products/:id",
+          element: <ProductDetails />,
         }
       ],
     },

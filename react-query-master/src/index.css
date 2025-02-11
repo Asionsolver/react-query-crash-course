@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme{
+   --animate-fade-in: fadeIn 0.5s ease-in;
+   @keyframes fadeIn {
+      0% {  
+        opacity: 0, transform: 'translateY(20px)'
+      }
+      100% {
+        opacity: 1, transform: 'translateY(0)'
+      }
+    }
+}
+
     .container {
       @apply px-5 max-w-[1280px] sm:mx-auto;
     }
