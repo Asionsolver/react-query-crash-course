@@ -5,7 +5,7 @@ import { NavLink } from "react-router";
 
 const ProductList = () => {
     const { data, isLoading, isError, error, isFetching, dataUpdatedAt, isStale, refetch } = useQuery({
-        queryKey: ["users"],
+        queryKey: ["products"],
         queryFn: fetchProducts,
         staleTime: 1000, // Data is fresh for 5 seconds
     });

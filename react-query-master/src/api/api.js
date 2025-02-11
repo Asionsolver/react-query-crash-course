@@ -11,6 +11,10 @@ export const getPosts = ()  => {
    return api.get('/posts?_start=0&_limit=10');  
 }
 
+export const deletePost = (id) => { 
+  return api.delete(`/posts/${id}`);
+}
+
 
 
 
@@ -50,6 +54,19 @@ try {
      console.log('Error fetching data');
    }
  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const fetchComments = async (page) => { 
+  try {
+    const response = await api.get(`/comments?_page=${page}&_limit=5`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.log('Error fetching data');
+    }
+  } catch (error) {
     console.error(error);
   }
 }

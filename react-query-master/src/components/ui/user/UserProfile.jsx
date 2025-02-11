@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 const UserProfile = () => {
     const { id } = useParams();
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["user"],
+        queryKey: ["user", id],
         queryFn: () => fetchUserDetails(id),
     });
 

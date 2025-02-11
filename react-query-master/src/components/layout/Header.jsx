@@ -25,6 +25,9 @@ export const Header = () => {
             <li className="hover:text-green-500 hover:underline  transition duration-300 visited:text-amber-300">
               <NavLink to="/products">Products</NavLink>
             </li>
+            <li className="hover:text-green-500 hover:underline  transition duration-300 visited:text-amber-300">
+              <NavLink to="/comments">Comments</NavLink>
+            </li>
           </ul>
         </nav>
       </header>
