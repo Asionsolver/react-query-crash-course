@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { fetchComments } from "@/api/api";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { updateComment } from './../api/api';
 
 
 const Comments = () => {
@@ -10,6 +11,24 @@ const Comments = () => {
         queryFn: () => fetchComments(page),
         placeholderData: keepPreviousData,
     });
+
+    const queryClient = useQueryClient();
+
+    const updateComments = useMutation({
+        mutationFn: (id) => updateComment(id),
+        onSuccess: (data, id) => {
+            console.log(data, id);
+            queryClient.setQueryData(['comments', page], (oldData) => {
+                return oldData?.map((comment) => {
+                    if (comment.id === id) {
+                        return { ...comment, name: data.name };
+                    }
+                    return comment;
+                });
+            });
+        },
+
+    })
 
 
 
@@ -28,7 +47,9 @@ const Comments = () => {
                         <h3 className=" my-3 font-semibold text-white">{comment.name}</h3>
                         <p className="font-semibold text-white">{comment.email}</p>
                         <p className="text-white">{comment.body}</p>
+                        <button className="mt-5 py-2 px-2 bg-cyan-600 w-28 text-center rounded-md text-xl" onClick={() => updateComments.mutate(comment.id)}>Update</button>
                     </li>
+
                 ))}
             </ul>
             {
